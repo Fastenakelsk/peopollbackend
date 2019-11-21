@@ -13,6 +13,16 @@ router.get('/tasks', async (req, res)=> {
     }
 });
 
+//Get 1 task
+router.get('/tasks/:taskID', async (req, res) => {
+    try{
+        const taskByID = await Task.findById(req.params.taskID);
+        res.json(taskByID);
+    }catch(err){
+        res.json({message: err});
+    }
+});
+
 //Post 1 task
 router.post('/tasks', async (req, res) => {
     const task = new Task({
@@ -21,16 +31,6 @@ router.post('/tasks', async (req, res) => {
     try{
         const savedTask = await task.save();
         res.json(savedTask);
-    }catch(err){
-        res.json({message: err});
-    }
-});
-
-//Get 1 task
-router.get('/tasks/:taskID', async (req, res) => {
-    try{
-        const taskByID = await Task.findById(req.params.taskID);
-        res.json(taskByID);
     }catch(err){
         res.json({message: err});
     }
