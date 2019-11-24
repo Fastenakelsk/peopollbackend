@@ -42,6 +42,12 @@ router.post('/users/authenticate', async (req, res) => {
     });
 });
 
+// Profile
+router.get('/users/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+    console.log('Did router.post -> authenticate');
+    res.json({user: req.user});
+  });
+
 //Dashboard
 router.get('/users/dashboard', passport.authenticate('jwt', {session:false}), (req, res, next) => {
     console.log('Did router.get -> dashboard');

@@ -22,12 +22,24 @@ require('./passport')(passport);
 //Import routes
 const tasksRoute = require('./routes/task');
 const usersRoute = require('./routes/User');
+const requestsRoute = require('./routes/Request');
+const friendsRoute = require('./routes/Friend');
+const pollRoute = require('./routes/Poll');
 
 app.use('/', tasksRoute);
 app.use('/tasks', tasksRoute);
 
 app.use('/', usersRoute);
 app.use('/users', usersRoute);
+
+app.use('/', requestsRoute);
+app.use('/requests', requestsRoute);
+
+app.use('/', friendsRoute);
+app.use('/friends', friendsRoute);
+
+app.use('/', pollRoute);
+app.use('/polls', pollRoute);
 
 //DB Connection - DB connection string from .env file -> .env.example pushed to Github
 mongoose.connect(process.env.DB_CONNECTION,
