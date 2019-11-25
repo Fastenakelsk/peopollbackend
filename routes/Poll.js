@@ -21,7 +21,7 @@ router.post('/polls', async (req, res) => {
 });
 
 //Get polls relating to a username
-router.get('/polls/:username', async (req, res) => {
+router.get('/polls/byUsername/:username', async (req, res) => {
     try{
         const allPolls = await Poll.find();
         const relatedPolls = [];
@@ -43,6 +43,19 @@ router.get('/polls/:username', async (req, res) => {
         console.log("Related Polls");
         console.log(relatedPolls);
         res.json(relatedPolls);
+    }catch(err){
+        res.json({message: err});
+    }
+});
+
+//Get poll by ID
+router.get('/polls/byID/:pollID', async (req, res) => {
+    try{
+        console.log('get poll by id');
+        console.log(req.params.pollID);
+        const poll = await Poll.findById(req.params.pollID);
+        console.log(poll);
+        res.json(poll);
     }catch(err){
         res.json({message: err});
     }

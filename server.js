@@ -40,6 +40,8 @@ app.use('/friends', friendsRoute);
 
 app.use('/', pollRoute);
 app.use('/polls', pollRoute);
+app.use('/polls/byID', pollRoute);
+app.use('/polls/byUsername', pollRoute);
 
 //DB Connection - DB connection string from .env file -> .env.example pushed to Github
 mongoose.connect(process.env.DB_CONNECTION,
