@@ -23,28 +23,26 @@ router.post('/polls', async (req, res) => {
 //Get polls relating to a username
 router.get('/polls/:username', async (req, res) => {
     try{
-        const madePolls = await Poll.find({creator: req.params.username});
-        const InvitedPolls = await Poll.find({invitedUsers: [req.params.username]});
-        const votedInPolls = await Poll.find({votedUsers: [req.params.username]});
-        const allPolls = [];
-        for(poll in madePolls){
-            allPolls.push(madePolls[poll]);
+        const allPolls = await Poll.find();
+        const relatedPolls = [];
+        for(poll in allPolls){
+            if(allPolls[poll].creator == req.params.username){
+                relatedPolls.push(allPolls[poll]);
+            }else{
+                if(allPolls[poll].invitedUsers.includes(req.params.username)){
+                    relatedPolls.push(allPolls[poll]);
+                }else{
+                    if(allPolls[poll].votedUsers.includes(req.params.username)){
+                        relatedPolls.push(allPolls[poll]);
+                    }
+                }
+            }
         }
-        for(poll in InvitedPolls){
-            allPolls.push(InvitedPolls[poll]);
-        }
-        for(poll in votedInPolls){
-            allPolls.push(votedInPolls[poll]);
-        }
-        console.log("All Polls");
+        console.log('All Polls');
         console.log(allPolls);
-        console.log("Made Polls");
-        console.log(madePolls);
-        console.log("Invited Polls");
-        console.log(InvitedPolls);
-        console.log("Voted In Polls");
-        console.log(votedInPolls);
-        res.json(allPolls);
+        console.log("Related Polls");
+        console.log(relatedPolls);
+        res.json(relatedPolls);
     }catch(err){
         res.json({message: err});
     }
