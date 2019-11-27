@@ -34,9 +34,12 @@ app.use('/users', usersRoute);
 
 app.use('/', requestsRoute);
 app.use('/requests', requestsRoute);
+app.use('/requests/received', requestsRoute);
+app.use('/requests/sent', requestsRoute);
 
 app.use('/', friendsRoute);
-app.use('/friends', friendsRoute);
+app.use('/friends/oneFriendship', friendsRoute);
+app.use('/friends/allFriendships', friendsRoute);
 
 app.use('/', pollRoute);
 app.use('/polls', pollRoute);

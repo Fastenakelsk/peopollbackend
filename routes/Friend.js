@@ -20,7 +20,7 @@ router.post('/friends', async (req, res) => {
 });
 
 //Get 1 friendship
-router.get('/friends/:sender/:receiver', async (req, res) => {
+router.get('/friends/oneFriendship/:sender/:receiver', async (req, res) => {
     try{
         const friendshipOne = await Friend.findOne({ sender: req.params.sender, receiver: req.params.receiver })
         const friendshipTwo = await Friend.findOne({ sender: req.params.receiver, receiver: req.params.sender })
@@ -35,7 +35,7 @@ router.get('/friends/:sender/:receiver', async (req, res) => {
 });
 
 //Get all friendships of one user by username
-router.get('/friends/:username', async (req, res) => {
+router.get('/friends/allFriendships/:username', async (req, res) => {
     try{
         const friends = await Friend.find({ sender: req.params.username });
         const moreFriends = await Friend.find({ receiver: req.params.username});
@@ -46,12 +46,7 @@ router.get('/friends/:username', async (req, res) => {
         for(friend in moreFriends){
             allFriends.push(moreFriends[friend].sender);
         }
-        console.log(allFriends)
-        if(allFriends == null){
-            res.json({ "success": true, message: "No Friends found" })
-        }else{
-            res.json(allFriends);
-        }
+        res.json(allFriends)
     }catch(err){
         res.json({ "success": false, msg: 'Error in finding friends' })
     }

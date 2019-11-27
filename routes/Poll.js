@@ -71,4 +71,22 @@ router.get('/polls', async (req, res)=> {
     }
 });
 
+//Patch 1 poll
+router.patch('/polls/:pollID', async (req, res) => {
+    try{
+        const updatePoll = await Poll.updateOne(
+            { _id: req.params.pollID }, 
+            { $set: 
+                {
+                    invitedUsers: req.body.invitedUsers,
+                    votedUsers: req.body.votedUsers,
+                    pollItems: req.body.pollItems
+                }
+        });
+        res.json(updatePoll);
+    }catch(err){
+        res.json({message: err});
+    }
+});
+
 module.exports = router;

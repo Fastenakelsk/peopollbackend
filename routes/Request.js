@@ -20,10 +20,20 @@ router.post('/requests', async (req, res) => {
     }
 });
 
-//Get all requests per username
-router.get('/requests/:username', async (req, res) => {
+//Get all received requests per username
+router.get('/requests/received/:username', async (req, res) => {
     try{
         const requestsByUsername = await Request.find({ receiver: req.params.username })
+        res.json(requestsByUsername);
+    }catch(err){
+        res.json({message: err});
+    }
+});
+
+//Get all received requests per username
+router.get('/requests/sent/:username', async (req, res) => {
+    try{
+        const requestsByUsername = await Request.find({ sender: req.params.username })
         res.json(requestsByUsername);
     }catch(err){
         res.json({message: err});
