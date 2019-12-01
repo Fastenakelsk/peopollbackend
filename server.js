@@ -20,14 +20,10 @@ app.use(passport.session());
 require('./passport')(passport);
 
 //Import routes
-const tasksRoute = require('./routes/task');
 const usersRoute = require('./routes/User');
 const requestsRoute = require('./routes/Request');
 const friendsRoute = require('./routes/Friend');
 const pollRoute = require('./routes/Poll');
-
-app.use('/', tasksRoute);
-app.use('/tasks', tasksRoute);
 
 app.use('/', usersRoute);
 app.use('/users', usersRoute);
